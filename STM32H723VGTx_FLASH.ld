@@ -53,7 +53,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = ORIGIN(RAM_D1) + LENGTH(RAM_D1);      /* end of RAM */
+_estack = ORIGIN(RAM_D1) + LENGTH(RAM_D1);    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0x800;      /* required amount of heap  */
 _Min_Stack_Size = 0x800; /* required amount of stack */
@@ -181,12 +181,12 @@ SECTIONS
     . = ABSOLUTE(0x30000000);
     *(.RxDecripSection) 
     
-    . = ABSOLUTE(0x30000200);
+    . = ABSOLUTE(0x30000100);
     *(.TxDecripSection)
     
-    . = ABSOLUTE(0x30000400);
+    . = ABSOLUTE(0x30000200);
     *(.Rx_PoolSection) 
-  } >RAM_D2 AT> FLASH
+  } >RAM_D2
 
 
   /* Remove information from the standard libraries */
