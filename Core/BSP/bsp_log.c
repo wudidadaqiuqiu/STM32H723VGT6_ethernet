@@ -1,3 +1,5 @@
+#include "stdio.h"
+#include "string.h"
 #include "bsp_log.h"
 /* segger rtt includes. */
 #include "SEGGER_RTT.h"
@@ -29,4 +31,31 @@ void segger_rtt_init(char * str)
 {
 	SEGGER_RTT_Init();
 	print_log(str);  // 封装接口，无需填写 BUFFER_INDEX
+}
+
+// #include <stdio.h>
+// int fputc(int ch, FILE* stream)
+// {
+//     //USART_SendData(USART1, (unsigned char) ch);
+//     //while (!(USART1->SR & USART_FLAG_TXE));
+//     // USART_SendChar(USART1, (uint8_t)ch);
+// 	// print_log((const char*)&ch);
+// 	print_log("1\n");
+//     return ch;
+// }
+
+int _write(int fd, char *ch, int len)
+{
+//   HAL_UART_Transmit(&huart1, (uint8_t*)ch, len, 0xFFFF);
+	// uint8_t c[2];
+	// c[0] = *ch;
+	// c[1] = '\0';
+	// memcpy(www, ch, len);
+	// print_log((const char *)c);
+	
+	char* p = (char*)calloc(len+1, sizeof(uint8_t));
+	memcpy(p, ch, len);
+	print_log(p);
+
+	return len;
 }

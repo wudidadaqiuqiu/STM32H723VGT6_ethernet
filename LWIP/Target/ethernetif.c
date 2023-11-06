@@ -175,7 +175,7 @@ static void low_level_init(struct netif *netif)
 
    uint8_t MACAddr[6] ;
   heth.Instance = ETH;
-  MACAddr[0] = 0x00;
+  MACAddr[0] = 0x68;
   MACAddr[1] = 0x80;
   MACAddr[2] = 0xE1;
   MACAddr[3] = 0x00;
@@ -321,8 +321,7 @@ static struct pbuf * low_level_input(struct netif *netif)
 
   if(RxAllocStatus == RX_ALLOC_OK)
   {
-    if(HAL_ETH_ReadData(&heth, (void **)&p) == HAL_OK)
-    print_log("receive\n");
+    HAL_ETH_ReadData(&heth, (void **)&p);
   }
 
   return p;

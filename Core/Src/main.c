@@ -52,7 +52,7 @@ void SystemClock_Config(void);
 static void MPU_Initialize(void);
 static void MPU_Config(void);
 /* USER CODE BEGIN PFP */
-
+// #define printf(...) print_log(sprintf((char*)u_buf,__VA_ARGS__))
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -100,6 +100,10 @@ int main(void)
   MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
   segger_rtt_init("RTT INIT\n");
+  // printf("test\n");
+  // LWIP_ASSERT("netif != NULL", (0));
+  // LWIP_DEBUGF("as\n");
+  // fputc(1)
   /* USER CODE END 2 */
 
   /* Infinite loop */
