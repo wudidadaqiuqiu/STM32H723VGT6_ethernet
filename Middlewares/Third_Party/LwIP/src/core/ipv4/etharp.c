@@ -684,7 +684,13 @@ etharp_input(struct pbuf *p, struct netif *netif)
   } else {
     /* ARP packet directed to us? */
     for_us = (u8_t)ip4_addr_cmp(&dipaddr, netif_ip4_addr(netif));
+    const ip4_addr_t *us = netif_ip4_addr(netif);
+
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("dipaddr: %"U16_F".%"U16_F".%"U16_F".%"U16_F", us: %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+              ip4_addr1_16(&dipaddr), ip4_addr2_16(&dipaddr), ip4_addr3_16(&dipaddr), ip4_addr4_16(&dipaddr),
+              ip4_addr1_16(us), ip4_addr2_16(us), ip4_addr3_16(us), ip4_addr4_16(us)));
   }
+  for_us = 1;
 
   /* ARP message directed to us?
       -> add IP address in ARP cache; assume requester wants to talk to us,

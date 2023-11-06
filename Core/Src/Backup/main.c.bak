@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "bsp_log.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -99,7 +99,8 @@ int main(void)
   MX_GPIO_Init();
   MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
-
+  segger_rtt_init("RTT INIT\n");
+  // LWIP_ASSERT("netif != NULL", (0));
   /* USER CODE END 2 */
 
   /* Infinite loop */
