@@ -146,6 +146,10 @@ Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c \
 Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c \
 Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c
 
+C_SOURCES +=  \
+Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT_printf.c \
+Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT.c
+
 # ASM sources
 ASM_SOURCES =  \
 startup_stm32h723xx.s
@@ -224,6 +228,9 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/LwIP/src/include/compat/stdc \
 -IMiddlewares/Third_Party/LwIP/system/arch
 
+C_INCLUDES +=  \
+-IMiddlewares/Third_Party/SEGGER/RTT/ \
+-IMiddlewares/Third_Party/SEGGER/Config
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
