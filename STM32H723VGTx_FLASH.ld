@@ -161,6 +161,11 @@ SECTIONS
     *(.bss*)
     *(COMMON)
 
+    /* ETH_CODE: add placement of RX buffer. STM32H72x/H73x has small D2 RAM, so we need to put it there.
+     * (NOLOAD) attribute used for .bss section to avoid linker warning (.bss initialized by startup code)
+     */
+    . = ALIGN(32);
+    *(.Rx_PoolSection)
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
@@ -177,17 +182,17 @@ SECTIONS
     . = ALIGN(8);
   } >DTCMRAM
 
-  .lwip_sec (NOLOAD) : {
+
+  /* ETH_CODE: add placement of DMA descriptors, rest is used by RX_POOL */
+  .lwip_sec (NOLOAD) :
+  {
     . = ABSOLUTE(0x30000000);
     *(.RxDecripSection) 
     
-    . = ABSOLUTE(0x30000200);
+    . = ABSOLUTE(0x30000100);
     *(.TxDecripSection)
     
-    . = ABSOLUTE(0x30000400);
-    *(.Rx_PoolSection) 
-  } >RAM_D2 AT> FLASH
-
+  } >RAM_D2
 
   /* Remove information from the standard libraries */
   /DISCARD/ :
