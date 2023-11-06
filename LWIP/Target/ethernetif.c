@@ -321,8 +321,8 @@ static struct pbuf * low_level_input(struct netif *netif)
 
   if(RxAllocStatus == RX_ALLOC_OK)
   {
-    if(HAL_ETH_ReadData(&heth, (void **)&p) == HAL_OK)
-    print_log("receive\n");
+    if(HAL_ETH_ReadData(&heth, (void **)&p) == HAL_OK);
+    // print_log("receive\n");
   }
 
   return p;

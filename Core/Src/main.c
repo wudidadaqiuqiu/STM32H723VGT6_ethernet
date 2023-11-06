@@ -100,6 +100,7 @@ int main(void)
   MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
   segger_rtt_init("RTT INIT\n");
+  // LWIP_ASSERT("netif != NULL", (0));
   /* USER CODE END 2 */
 
   /* Infinite loop */
