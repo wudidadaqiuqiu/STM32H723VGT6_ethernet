@@ -3234,7 +3234,6 @@
  * @ingroup lwip_opts_debug
  * @{
  */
-#define LWIP_DEBUG
 /**
  * LWIP_DBG_MIN_LEVEL: After masking, the value of the debug is
  * compared against this value. If it is smaller, then debugging
@@ -3258,21 +3257,21 @@
  * ETHARP_DEBUG: Enable debugging in etharp.c.
  */
 #if !defined ETHARP_DEBUG || defined __DOXYGEN__
-#define ETHARP_DEBUG                    LWIP_DBG_ON
+#define ETHARP_DEBUG                    LWIP_DBG_OFF
 #endif
 
 /**
  * NETIF_DEBUG: Enable debugging in netif.c.
  */
 #if !defined NETIF_DEBUG || defined __DOXYGEN__
-#define NETIF_DEBUG                     LWIP_DBG_ON
+#define NETIF_DEBUG                     LWIP_DBG_OFF
 #endif
 
 /**
  * PBUF_DEBUG: Enable debugging in pbuf.c.
  */
 #if !defined PBUF_DEBUG || defined __DOXYGEN__
-#define PBUF_DEBUG                      LWIP_DBG_ON
+#define PBUF_DEBUG                      LWIP_DBG_OFF
 #endif
 
 /**
@@ -3300,7 +3299,7 @@
  * ICMP_DEBUG: Enable debugging in icmp.c.
  */
 #if !defined ICMP_DEBUG || defined __DOXYGEN__
-#define ICMP_DEBUG                      LWIP_DBG_ON
+#define ICMP_DEBUG                      LWIP_DBG_OFF
 #endif
 
 /**
@@ -3434,7 +3433,7 @@
  * UDP_DEBUG: Enable debugging in UDP.
  */
 #if !defined UDP_DEBUG || defined __DOXYGEN__
-#define UDP_DEBUG                       LWIP_DBG_ON
+#define UDP_DEBUG                       LWIP_DBG_OFF
 #endif
 
 /**

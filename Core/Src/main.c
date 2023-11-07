@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "lwip.h"
 #include "gpio.h"
 
@@ -51,6 +52,7 @@
 void SystemClock_Config(void);
 static void MPU_Initialize(void);
 static void MPU_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 // #define printf(...) print_log(sprintf((char*)u_buf,__VA_ARGS__))
 /* USER CODE END PFP */
@@ -97,7 +99,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
   segger_rtt_init("RTT INIT\n");
   // printf("test\n");
@@ -106,6 +107,13 @@ int main(void)
   // fputc(1)
   /* USER CODE END 2 */
 
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -113,7 +121,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    MX_LWIP_Process();
+    // MX_LWIP_Process();
   }
   /* USER CODE END 3 */
 }
