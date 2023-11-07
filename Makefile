@@ -22,7 +22,7 @@ TARGET = eth_test
 # debug build?
 DEBUG = 1
 # optimization
-OPT = -Og
+OPT = -O3
 
 
 #######################################
@@ -148,7 +148,8 @@ Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c
 
 C_SOURCES +=  \
 Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT_printf.c \
-Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT.c
+Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT.c	\
+Core/BSP/bsp_log.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -230,7 +231,8 @@ C_INCLUDES =  \
 
 C_INCLUDES +=  \
 -IMiddlewares/Third_Party/SEGGER/RTT/ \
--IMiddlewares/Third_Party/SEGGER/Config
+-IMiddlewares/Third_Party/SEGGER/Config	\
+-ICore/BSP/
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections

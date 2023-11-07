@@ -192,7 +192,10 @@ SECTIONS
     . = ABSOLUTE(0x30000100);
     *(.TxDecripSection)
     
+    . = ABSOLUTE(0x30000200);
+    *(.Rx_PoolSection) 
   } >RAM_D2
+
 
   /* Remove information from the standard libraries */
   /DISCARD/ :

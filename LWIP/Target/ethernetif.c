@@ -175,7 +175,7 @@ static void low_level_init(struct netif *netif)
 
    uint8_t MACAddr[6] ;
   heth.Instance = ETH;
-  MACAddr[0] = 0x00;
+  MACAddr[0] = 0x68;
   MACAddr[1] = 0x80;
   MACAddr[2] = 0xE1;
   MACAddr[3] = 0x00;
