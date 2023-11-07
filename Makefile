@@ -161,7 +161,8 @@ Middlewares/Third_Party/LwIP/system/OS/sys_arch.c
 C_SOURCES +=  \
 Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT_printf.c \
 Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT.c	\
-Core/BSP/bsp_log.c
+Core/BSP/bsp_log.c	\
+Core/APP/tcpserver_echo.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -247,8 +248,8 @@ C_INCLUDES =  \
 C_INCLUDES +=  \
 -IMiddlewares/Third_Party/SEGGER/RTT/ \
 -IMiddlewares/Third_Party/SEGGER/Config	\
--ICore/BSP/
-
+-ICore/BSP/	\
+-ICore/APP/
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 

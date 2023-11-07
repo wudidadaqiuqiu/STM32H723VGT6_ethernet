@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "bsp_log.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
