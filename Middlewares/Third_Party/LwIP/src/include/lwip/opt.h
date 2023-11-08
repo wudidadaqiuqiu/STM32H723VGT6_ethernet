@@ -3292,14 +3292,14 @@
  * SOCKETS_DEBUG: Enable debugging in sockets.c.
  */
 #if !defined SOCKETS_DEBUG || defined __DOXYGEN__
-#define SOCKETS_DEBUG                   LWIP_DBG_OFF
+#define SOCKETS_DEBUG                   LWIP_DBG_ON
 #endif
 
 /**
  * ICMP_DEBUG: Enable debugging in icmp.c.
  */
 #if !defined ICMP_DEBUG || defined __DOXYGEN__
-#define ICMP_DEBUG                      LWIP_DBG_ON
+#define ICMP_DEBUG                      LWIP_DBG_OFF
 #endif
 
 /**

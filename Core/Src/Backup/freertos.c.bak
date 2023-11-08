@@ -25,7 +25,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "netif.h"
 #include "tcpecho.h"
 /* USER CODE END Includes */
 
@@ -132,15 +131,11 @@ void StartDefaultTask(void const * argument)
   /* init code for LWIP */
   MX_LWIP_Init();
   /* USER CODE BEGIN StartDefaultTask */
-  TaskHandle_t* tcp_echo_task = NULL;
-  extern struct netif gnetif; // TODO: 改掉extern
+  TaskHandle_t* tcp_echo_task;
   /* Infinite loop */
   for(;;)
   {
-    if(((!tcp_echo_task) || (eTaskGetState(*tcp_echo_task) == eDeleted)) && netif_is_link_up(&gnetif))
-    {
-      tcp_echo_task = tcpecho_init();
-    }
+    if(eTaskGetState(tcp_echo_task))
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */

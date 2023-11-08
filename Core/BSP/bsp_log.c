@@ -56,6 +56,6 @@ int _write(int fd, char *ch, int len)
 	char* p = (char*)calloc(len+1, sizeof(uint8_t));
 	memcpy(p, ch, len);
 	print_log(p);
-
+	free(p);
 	return len;
 }
