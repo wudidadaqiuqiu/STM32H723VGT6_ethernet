@@ -6,19 +6,22 @@
 #include "lwip/api.h"
 /*-----------------------------------------------------------------------------------*/
 #define RECV_DATA         (1024)
+uint8_t echo_recv_data[RECV_DATA] = {0};
 #define LOCAL_PORT 5001
 static void  
-tcpecho_thread(void *arg)
+tcpecho_task(void *arg)
 {
   int sock = -1,connected;
   char *recv_data;
   struct sockaddr_in server_addr,client_addr;
   socklen_t sin_size;
   int recv_data_len;
-  
-  printf("PORT:%d\n\n",LOCAL_PORT);
-  
-  recv_data = (char *)pvPortMalloc(RECV_DATA);
+ 
+  printf("Local port:%d\n\n",LOCAL_PORT);
+ 
+  // recv_data = (char *)pvPortMalloc(RECV_DATA);
+  recv_data = (char *)echo_recv_data;
+
   if (recv_data == NULL)
   {
       printf("No memory\n");
@@ -84,16 +87,27 @@ tcpecho_thread(void *arg)
   }
 __exit:
   if (sock >= 0) closesocket(sock);
-  if (recv_data) free(recv_data);
-  // vTaskDelete(NULL);
+  // if (recv_data) free(recv_data);
+  vTaskDelete(NULL);
 }
 /*-----------------------------------------------------------------------------------*/
-void
-tcpecho_init(void)
+TaskHandle_t tcpecho_init(void)
 {
-  printf("create echo thread\n");
-  sys_thread_new("tcpecho_thread", tcpecho_thread, NULL, 512, 4);
-  // xTaskCreate()
+  static uint8_t created_count = 0;
+  // sys_thread_new("tcpecho_thread", tcpecho_thread, NULL, 512, 4);
+  // printf("tcp_echo Task created %d times\n", (created_count++));
+  TaskHandle_t task_handle;
+  xTaskCreate(
+					(TaskFunction_t )tcpecho_task,				/* 任务入口函数 */
+					(const char*    )"Server_Echo_Task",				/* 任务名字 */
+					( uint32_t) configMINIMAL_STACK_SIZE*2,							/* 任务栈大小 */
+					(void *  ) NULL,							/* 任务入口参数 */
+					(UBaseType_t ) 1,			/* 任务的优先级 */ 
+          // 任务优先级在哪个层面上比较？
+					(TaskHandle_t *  ) &task_handle		/* 返回的TCB结构体指针 */
+					);
+  printf("%ld\n",(uint32_t)&task_handle);
+  return task_handle;
 }
 /*-----------------------------------------------------------------------------------*/
 #endif

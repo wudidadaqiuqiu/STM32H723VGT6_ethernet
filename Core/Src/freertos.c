@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "netif.h"
 #include "tcpecho.h"
 /* USER CODE END Includes */
 
@@ -113,8 +114,7 @@ void MX_FREERTOS_Init(void) {
   EtherRecvTaskHandle = osThreadCreate(osThread(EtherRecvTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  // osDelay(1);
-  
+  // tcpecho_init();  
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
@@ -133,9 +133,16 @@ void StartDefaultTask(void const * argument)
   MX_LWIP_Init();
   tcpecho_init();
   /* USER CODE BEGIN StartDefaultTask */
+  static TaskHandle_t tcp_echo_task;
+  extern struct netif gnetif; // TODO: 改掉extern
   /* Infinite loop */
   for(;;)
   {
+    if(((!tcp_echo_task) || (eTaskGetState(tcp_echo_task) == eDeleted)) && netif_is_link_up(&gnetif))
+    {
+      tcp_echo_task = tcpecho_init();
+      // printf("%ld\n",(uint32_t)tcp_echo_task);
+    }
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */

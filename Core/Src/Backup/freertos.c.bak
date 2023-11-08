@@ -113,7 +113,7 @@ void MX_FREERTOS_Init(void) {
   EtherRecvTaskHandle = osThreadCreate(osThread(EtherRecvTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  tcpecho_init();
+  // tcpecho_init();  
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
@@ -131,9 +131,11 @@ void StartDefaultTask(void const * argument)
   /* init code for LWIP */
   MX_LWIP_Init();
   /* USER CODE BEGIN StartDefaultTask */
+  TaskHandle_t* tcp_echo_task;
   /* Infinite loop */
   for(;;)
   {
+    if(eTaskGetState(tcp_echo_task))
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */

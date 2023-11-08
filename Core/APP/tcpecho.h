@@ -1,6 +1,7 @@
 #ifndef _TCPSERVER_ECHO_H
 #define _TCPSERVER_ECHO_H
+#include "cmsis_os.h"
 
-void tcpecho_init(void);
+TaskHandle_t tcpecho_init(void);
 
 #endif
