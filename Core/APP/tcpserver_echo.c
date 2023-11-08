@@ -15,9 +15,9 @@ tcpecho_thread(void *arg)
   struct sockaddr_in server_addr,client_addr;
   socklen_t sin_size;
   int recv_data_len;
- 
-  printf("本地端口号是%d\n\n",LOCAL_PORT);
- 
+  
+  printf("PORT:%d\n\n",LOCAL_PORT);
+  
   recv_data = (char *)pvPortMalloc(RECV_DATA);
   if (recv_data == NULL)
   {
@@ -85,12 +85,15 @@ tcpecho_thread(void *arg)
 __exit:
   if (sock >= 0) closesocket(sock);
   if (recv_data) free(recv_data);
+  // vTaskDelete(NULL);
 }
 /*-----------------------------------------------------------------------------------*/
 void
 tcpecho_init(void)
 {
+  printf("create echo thread\n");
   sys_thread_new("tcpecho_thread", tcpecho_thread, NULL, 512, 4);
+  // xTaskCreate()
 }
 /*-----------------------------------------------------------------------------------*/
 #endif
