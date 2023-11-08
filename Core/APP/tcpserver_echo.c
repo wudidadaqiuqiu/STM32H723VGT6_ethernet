@@ -91,12 +91,12 @@ __exit:
   vTaskDelete(NULL);
 }
 /*-----------------------------------------------------------------------------------*/
-TaskHandle_t* tcpecho_init(void)
+TaskHandle_t tcpecho_init(void)
 {
   static uint8_t created_count = 0;
   // sys_thread_new("tcpecho_thread", tcpecho_thread, NULL, 512, 4);
   // printf("tcp_echo Task created %d times\n", (created_count++));
-  TaskHandle_t *task_handle = NULL;
+  TaskHandle_t task_handle;
   xTaskCreate(
 					(TaskFunction_t )tcpecho_task,				/* 任务入口函数 */
 					(const char*    )"Server_Echo_Task",				/* 任务名字 */
@@ -104,8 +104,9 @@ TaskHandle_t* tcpecho_init(void)
 					(void *  ) NULL,							/* 任务入口参数 */
 					(UBaseType_t ) 1,			/* 任务的优先级 */ 
           // 任务优先级在哪个层面上比较？
-					(TaskHandle_t *  ) task_handle		/* 返回的TCB结构体指针 */
+					(TaskHandle_t *  ) &task_handle		/* 返回的TCB结构体指针 */
 					);
+  printf("%ld\n",(uint32_t)&task_handle);
   return task_handle;
 }
 /*-----------------------------------------------------------------------------------*/

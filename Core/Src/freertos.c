@@ -132,14 +132,15 @@ void StartDefaultTask(void const * argument)
   /* init code for LWIP */
   MX_LWIP_Init();
   /* USER CODE BEGIN StartDefaultTask */
-  TaskHandle_t* tcp_echo_task = NULL;
+  static TaskHandle_t tcp_echo_task;
   extern struct netif gnetif; // TODO: 改掉extern
   /* Infinite loop */
   for(;;)
   {
-    if(((!tcp_echo_task) || (eTaskGetState(*tcp_echo_task) == eDeleted)) && netif_is_link_up(&gnetif))
+    if(((!tcp_echo_task) || (eTaskGetState(tcp_echo_task) == eDeleted)) && netif_is_link_up(&gnetif))
     {
       tcp_echo_task = tcpecho_init();
+      // printf("%ld\n",(uint32_t)tcp_echo_task);
     }
     osDelay(1);
   }
