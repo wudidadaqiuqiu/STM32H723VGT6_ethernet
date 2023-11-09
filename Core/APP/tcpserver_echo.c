@@ -7,7 +7,7 @@
 /*-----------------------------------------------------------------------------------*/
 #define RECV_DATA         (1024)
 uint8_t echo_recv_data[RECV_DATA] = {0};
-#define LOCAL_PORT 5001
+#define LOCAL_PORT 5002
 static void  
 tcpecho_task(void *arg)
 {
@@ -93,7 +93,7 @@ __exit:
 /*-----------------------------------------------------------------------------------*/
 TaskHandle_t tcpecho_init(void)
 {
-  static uint8_t created_count = 0;
+  // static uint8_t created_count = 0;
   // sys_thread_new("tcpecho_thread", tcpecho_thread, NULL, 512, 4);
   // printf("tcp_echo Task created %d times\n", (created_count++));
   TaskHandle_t task_handle;
@@ -106,7 +106,7 @@ TaskHandle_t tcpecho_init(void)
           // 任务优先级在哪个层面上比较？
 					(TaskHandle_t *  ) &task_handle		/* 返回的TCB结构体指针 */
 					);
-  printf("%ld\n",(uint32_t)&task_handle);
+  // printf("%ld\n",(uint32_t)&task_handle);
   return task_handle;
 }
 /*-----------------------------------------------------------------------------------*/
