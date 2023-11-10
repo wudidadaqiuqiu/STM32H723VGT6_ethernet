@@ -20,12 +20,13 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "lwip.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "bsp_log.h"
-
+#include "tim_for_freertos.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,6 +101,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   segger_rtt_init("RTT INIT\n");
   // printf("test\n");
@@ -258,7 +260,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+  if (htim->Instance == TIM3) {
+    BSP_TIM_PeriodElapsedCallback(htim);
+  }
   /* USER CODE END Callback 1 */
 }
 

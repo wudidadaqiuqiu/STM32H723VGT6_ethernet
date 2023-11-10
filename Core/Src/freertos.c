@@ -181,7 +181,7 @@ void StartEtherRecv(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    memset(RunTimeInfo,0,400);				//信息缓冲区清零
+    memset(RunTimeInfo,0,400);				//信息缓冲区清�?
     vTaskGetRunTimeStats(RunTimeInfo);		//获取任务运行时间信息
     printf("TaskName\tRuntime\tPercent\r\n");
     // printf("%s\r\n",RunTimeInfo);

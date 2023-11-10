@@ -28,6 +28,7 @@
 #include "netif.h"
 #include "tcpecho.h"
 #include "tcp_client.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -162,7 +163,7 @@ void StartDefaultTask(void const * argument)
       tcp_echo_task = tcpecho_init();
       // printf("%ld\n",(uint32_t)tcp_echo_task);
     }
-    osDelay(10);
+    osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -180,7 +181,15 @@ void StartEtherRecv(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    memset(RunTimeInfo,0,400);				//信息缓冲区清零
+    vTaskGetRunTimeStats(RunTimeInfo);		//获取任务运行时间信息
+    printf("TaskName\tRuntime\tPercent\r\n");
+    // printf("%s\r\n",RunTimeInfo);
+    uint8_t *p = (uint8_t*)RunTimeInfo;
+    for(; *p!=0;p++) {
+      printf("%c", *p);
+    }
+    osDelay(1000);
   }
   /* USER CODE END StartEtherRecv */
 }
