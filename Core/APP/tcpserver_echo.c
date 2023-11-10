@@ -110,4 +110,26 @@ TaskHandle_t tcpecho_init(void)
   return task_handle;
 }
 /*-----------------------------------------------------------------------------------*/
+
+
+char RunTimeInfo[400];		//保存任务运行时间信息
+//RunTimeStats任务
+// void RunTimeStats_task(void *pvParameters)
+// {
+// 	// u8 key=0;
+// 	while(1)
+// 	{
+// 		// key=KEY_Scan(0);
+// 		// if(key==WKUP_PRES)
+// 		{
+// 			memset(RunTimeInfo,0,400);				//信息缓冲区清零
+// 			vTaskGetRunTimeStats(RunTimeInfo);		//获取任务运行时间信息
+// 			printf("任务名\t\t\t运行时间\t运行所占百分比\r\n");
+// 			printf("%s\r\n",RunTimeInfo);
+// 		}
+// 		vTaskDelay(1000);                           	//延时10ms，也就是1000个时钟节拍	
+// 	}
+// }
+
+
 #endif

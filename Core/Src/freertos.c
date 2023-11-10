@@ -28,6 +28,7 @@
 #include "netif.h"
 #include "tcpecho.h"
 #include "tcp_client.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -65,6 +66,23 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
 void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
+
+/* Hook prototypes */
+void configureTimerForRunTimeStats(void);
+unsigned long getRunTimeCounterValue(void);
+
+/* USER CODE BEGIN 1 */
+/* Functions needed when configGENERATE_RUN_TIME_STATS is on */
+__weak void configureTimerForRunTimeStats(void)
+{
+
+}
+
+__weak unsigned long getRunTimeCounterValue(void)
+{
+return 0;
+}
+/* USER CODE END 1 */
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
@@ -132,7 +150,6 @@ void StartDefaultTask(void const * argument)
 {
   /* init code for LWIP */
   MX_LWIP_Init();
-  
   /* USER CODE BEGIN StartDefaultTask */
   tcpecho_init();
   TCPClientTaskCreate();
@@ -146,7 +163,7 @@ void StartDefaultTask(void const * argument)
       tcp_echo_task = tcpecho_init();
       // printf("%ld\n",(uint32_t)tcp_echo_task);
     }
-    osDelay(10);
+    osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -164,7 +181,15 @@ void StartEtherRecv(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    memset(RunTimeInfo,0,400);				//信息缓冲区清零
+    vTaskGetRunTimeStats(RunTimeInfo);		//获取任务运行时间信息
+    printf("TaskName\tRuntime\tPercent\r\n");
+    // printf("%s\r\n",RunTimeInfo);
+    uint8_t *p = (uint8_t*)RunTimeInfo;
+    for(; *p!=0;p++) {
+      printf("%c", *p);
+    }
+    osDelay(1000);
   }
   /* USER CODE END StartEtherRecv */
 }

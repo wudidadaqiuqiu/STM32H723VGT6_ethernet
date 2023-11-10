@@ -25,7 +25,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "netif.h"
 #include "tcpecho.h"
+#include "tcp_client.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,6 +65,23 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
 void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
+
+/* Hook prototypes */
+void configureTimerForRunTimeStats(void);
+unsigned long getRunTimeCounterValue(void);
+
+/* USER CODE BEGIN 1 */
+/* Functions needed when configGENERATE_RUN_TIME_STATS is on */
+__weak void configureTimerForRunTimeStats(void)
+{
+
+}
+
+__weak unsigned long getRunTimeCounterValue(void)
+{
+return 0;
+}
+/* USER CODE END 1 */
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
@@ -109,7 +128,7 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of EtherRecvTask */
-  osThreadDef(EtherRecvTask, StartEtherRecv, osPriorityIdle, 0, 512);
+  osThreadDef(EtherRecvTask, StartEtherRecv, osPriorityIdle, 0, 128);
   EtherRecvTaskHandle = osThreadCreate(osThread(EtherRecvTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -131,12 +150,19 @@ void StartDefaultTask(void const * argument)
   /* init code for LWIP */
   MX_LWIP_Init();
   /* USER CODE BEGIN StartDefaultTask */
-  TaskHandle_t* tcp_echo_task;
+  tcpecho_init();
+  TCPClientTaskCreate();
+  static TaskHandle_t tcp_echo_task;
+  extern struct netif gnetif; // TODO: 改掉extern
   /* Infinite loop */
   for(;;)
   {
-    if(eTaskGetState(tcp_echo_task))
-    osDelay(1);
+    if(((!tcp_echo_task) || (eTaskGetState(tcp_echo_task) == eDeleted)) && netif_is_link_up(&gnetif))
+    {
+      tcp_echo_task = tcpecho_init();
+      // printf("%ld\n",(uint32_t)tcp_echo_task);
+    }
+    osDelay(10);
   }
   /* USER CODE END StartDefaultTask */
 }

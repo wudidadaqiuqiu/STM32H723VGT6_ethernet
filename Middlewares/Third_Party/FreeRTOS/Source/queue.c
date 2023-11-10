@@ -740,7 +740,7 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 BaseType_t xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait, const BaseType_t xCopyPosition )
 {
 BaseType_t xEntryTimeSet = pdFALSE, xYieldRequired;
-TimeOut_t xTimeOut;	
+TimeOut_t xTimeOut;
 Queue_t * const pxQueue = xQueue;
 
 	configASSERT( pxQueue );

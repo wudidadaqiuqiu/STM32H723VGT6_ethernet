@@ -3,5 +3,6 @@
 #include "cmsis_os.h"
 
 TaskHandle_t tcpecho_init(void);
+extern char RunTimeInfo[400];
 
 #endif
