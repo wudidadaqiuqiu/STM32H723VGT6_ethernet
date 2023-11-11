@@ -29,6 +29,7 @@
 #include "tcpecho.h"
 #include "tcp_client.h"
 #include "string.h"
+#include "colorful_log.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -181,14 +182,17 @@ void StartEtherRecv(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    memset(RunTimeInfo,0,400);				//信息缓冲区清�?
-    vTaskGetRunTimeStats(RunTimeInfo);		//获取任务运行时间信息
-    printf("TaskName\tRuntime\tPercent\r\n");
-    // printf("%s\r\n",RunTimeInfo);
-    uint8_t *p = (uint8_t*)RunTimeInfo;
-    for(; *p!=0;p++) {
-      printf("%c", *p);
-    }
+    // memset(RunTimeInfo,0,400);				//信息缓冲区清�?
+    // vTaskGetRunTimeStats(RunTimeInfo);		//获取任务运行时间信息
+    // printf("TaskName\tRuntime\tPercent\r\n");
+    // // printf("%s\r\n",RunTimeInfo);
+    // uint8_t *p = (uint8_t*)RunTimeInfo;
+    // for(; *p!=0;p++) {
+    //   printf("%c", *p);
+    // }
+    LOGE("this");
+    LOGW("is");
+    LOGI("test");
     osDelay(1000);
   }
   /* USER CODE END StartEtherRecv */

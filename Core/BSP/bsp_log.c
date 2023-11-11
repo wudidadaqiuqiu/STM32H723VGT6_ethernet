@@ -3,7 +3,7 @@
 #include "bsp_log.h"
 /* segger rtt includes. */
 #include "SEGGER_RTT.h"
-#include "SEGGER_RTT_Conf.h"
+// #include "SEGGER_RTT_Conf.h"
 
 #define BUFFER_INDEX 0
 
