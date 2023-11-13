@@ -160,8 +160,11 @@ Middlewares/Third_Party/LwIP/system/OS/sys_arch.c \
 Core/Src/tim.c
 
 C_SOURCES +=  \
-Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT_printf.c \
-Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT.c	\
+Middlewares/Third_Party/SEGGER/Config/SEGGER_SYSVIEW_Config_FreeRTOS.c	\
+Middlewares/Third_Party/SEGGER/SEGGER_/SEGGER_RTT_printf.c \
+Middlewares/Third_Party/SEGGER/SEGGER_/SEGGER_RTT.c	\
+Middlewares/Third_Party/SEGGER/SEGGER_/SEGGER_SYSVIEW.c	\
+Middlewares/Third_Party/SEGGER/Sample/FreeRTOSV10/SEGGER_SYSVIEW_FreeRTOS.c	\
 Core/BSP/bsp_log.c	\
 Core/BSP/tim_for_freertos/tim_for_freertos.c	\
 Core/APP/tcpserver_echo.c	\
@@ -249,8 +252,9 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
 
 C_INCLUDES +=  \
--IMiddlewares/Third_Party/SEGGER/RTT/ \
+-IMiddlewares/Third_Party/SEGGER/SEGGER_ \
 -IMiddlewares/Third_Party/SEGGER/Config	\
+-IMiddlewares/Third_Party/SEGGER/Sample/FreeRTOSV10	\
 -ICore/BSP/	\
 -ICore/BSP/tim_for_freertos/	\
 -ICore/APP/	\

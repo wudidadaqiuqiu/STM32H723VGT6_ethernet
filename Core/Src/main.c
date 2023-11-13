@@ -104,6 +104,7 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   segger_rtt_init("RTT INIT\n");
+  SEGGER_SYSVIEW_Conf();
   // printf("test\n");
   // LWIP_ASSERT("netif != NULL", (0));
   // LWIP_DEBUGF("as\n");
