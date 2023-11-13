@@ -172,7 +172,8 @@ Core/HAL/tcp_client.c
 
 # ASM sources
 ASM_SOURCES =  \
-startup_stm32h723xx.s
+startup_stm32h723xx.s	\
+Middlewares/Third_Party/SEGGER/SEGGER_/SEGGER_RTT_ASM_ARMv7M.s
 
 
 #######################################
